@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/ayush-200119/Manage-Master#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "mongoose": "^6.4.2"
+    "mongoose": "^6.4.2",
+    "node-notifier": "^10.0.1",
+    "uniqid": "^5.4.0"
   }
 }
