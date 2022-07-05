@@ -1,0 +1,36 @@
+<%- include("header.ejs"); -%>
+<title>Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Montserrat&display=swap" rel="stylesheet">
+<link href="/css/home.css" rel="stylesheet">
+</head>
+
+<body>
+    
+    <div class="hero">
+        <div class="container">
+            <h1 class="heading">Manage Master</h1>
+            <p class="content">One-stop solution for all your works</p>
+            <p class="content">Helps you in:</p>
+            <ul class="content steps">
+                <li>Creating To-do's and completing them!</li>
+                <li>Creating Notes!</li>
+                <li>Video Notes!</li>
+            </ul>
+            <% if(isLoggedIn===false){ %>
+                <p class="content">Unlock the features by logging-in or signing-up</p>
+                <a href="/login" class="login btn">Log-in</a>
+                <a href="/signup" class="signup btn">Sign-up</a>
+            <% }else{ %>
+                <a href=<%= "/" +userid+ "/todos" %> class="todo btn">To-do's</a>
+                <a href=<%= "/" +userid+ "/notes" %> class="notes btn">Notes</a>
+                <a href=<%= "/" +userid+ "/record" %> class="record btn">Record</a>
+                <a href=<%= "/" +userid+ "/logout" %> class="btn logout">Log Out</a>
+            <% } %>
+        </div>
+    </div>
+
+</body>
+
+<%- include("footer.ejs"); -%>

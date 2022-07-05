@@ -1,0 +1,41 @@
+.container{
+    width:80%;
+    max-width:1120px;
+    margin:0 auto;
+}
+
+.hero{
+    padding:7% 0;
+}
+
+.heading{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1rem;
+}
+
+.todos{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap:2rem;
+    flex-wrap: wrap;
+}
+
+
+.btn{
+    padding: 0.8rem 2rem;
+    /* background-color: #0AA1DD; */
+    border-color: #937DC2;
+    border-radius: 15px;
+    margin:2rem 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+}
+
+.btn:hover{
+    background-color: #937DC2;
+    border-color: #937DC2;
+}

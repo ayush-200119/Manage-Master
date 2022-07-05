@@ -5,6 +5,7 @@ const bodyParser=require("body-parser");
 //Controllers
 const loginController=require(__dirname+"/controllers/loginController.js");
 const signupController=require(__dirname+"/controllers/signupController.js");
+const homeController=require(__dirname+"/controllers/homeController.js");
 
 //Database connections
 mongoose.connect("mongodb://localhost:27017/studentDB",{
@@ -24,6 +25,7 @@ const Student=require(__dirname+"/models/studentSchema.js");
 //setting controllers
 app.use("/login",loginController);
 app.use("/signup",signupController);
+app.use("/",homeController);
 
 //Setting routes
 app.listen(3000,()=>{
