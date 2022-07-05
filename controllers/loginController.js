@@ -5,6 +5,7 @@ const Student = require(__dirname+"/../models/studentSchema.js");
 const router=express.Router();
 const notifier=require('node-notifier');
 
+//diufwigf
 
 router.get("/",function(req,res){
     res.render("login");
