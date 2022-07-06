@@ -1,4 +1,4 @@
-<%- include("header.ejs"); -%>
+<%- include("partials/header.ejs"); -%>
 <title>Home</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,9 +12,7 @@
             <h1 class="heading">To-Do's</h1>
             <a href="#" class="btn">Create a New To-Do!</a>
             <!-- array of already existed todos -->
-            <% if(todos.length>0){ %>
-                <p class="content">Existing To-do's</p>
-            <% } %>
+            
             <div class="todos">
                 <% for(let i=0;i<todos.length;i++){ %>
                     <a href="#" class="btn todo"> <% todos[i].title %> </a>
@@ -24,4 +22,4 @@
     </div>
 </body>
 
-<%- include("footer.ejs"); -%>
+<%- include("partials/footer.ejs"); -%>
