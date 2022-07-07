@@ -1,0 +1,23 @@
+.container{
+    width:80%;
+    max-width:1120px;
+    margin:0 auto;
+}
+
+.hero{
+    padding:7% 0;
+}
+
+.heading{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1rem;
+}
+
+.content{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+}

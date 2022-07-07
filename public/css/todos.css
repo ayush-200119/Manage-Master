@@ -16,6 +16,12 @@
     letter-spacing: 0.1rem;
 }
 
+.content{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
 .todos{
     display: flex;
     /* justify-content: center; */
@@ -24,6 +30,11 @@
     flex-wrap: wrap;
 }
 
+.todo-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .btn{
     padding: 0.8rem 2rem;
@@ -36,6 +47,21 @@
 }
 
 .btn:hover{
+    background-color: #937DC2;
+    border-color: #937DC2;
+}
+
+.submit-btn{
+    padding: 0.4rem 1rem;
+    /* background-color: #0AA1DD; */
+    border-color: #937DC2;
+    border-radius: 15px;
+    margin:1rem 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+}
+
+.submit-btn:hover{
     background-color: #937DC2;
     border-color: #937DC2;
 }
