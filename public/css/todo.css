@@ -21,3 +21,23 @@
     font-size: 1.25rem;
     font-weight: 400;
 }
+
+.todo-item{
+    margin :3rem 0;
+    width:50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-task{
+    display: inline;
+    margin-bottom: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.clearTodo{
+    margin-top: 5rem;
+}

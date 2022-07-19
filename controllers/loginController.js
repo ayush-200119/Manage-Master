@@ -58,7 +58,6 @@ router.post("/",function(req,res){
                             actions:["Try again"]
                         },
                         function(err,response,metadata){
-                            console.log(response);
                             res.redirect("/login");
                         }
                         );
