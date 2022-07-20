@@ -41,3 +41,7 @@
 .clearTodo{
     margin-top: 5rem;
 }
+
+.checkbox:checked + .todo-task{
+    text-decoration: line-through;
+}

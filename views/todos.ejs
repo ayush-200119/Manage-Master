@@ -2,6 +2,7 @@
 <title>Home</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Montserrat&display=swap" rel="stylesheet">
 <link href="/css/todos.css" rel="stylesheet">
 </head>
@@ -48,7 +49,9 @@
 
             <div class="todos">
               <% for(let i=0;i<todos.length;i++){ %>
-                  <a href=<%= "/" +userid+ "/todos/" + todos[i].title %> class="btn todo"> <%= todos[i].title %> </a>
+                <form action=<%= "/" +userid+ "/todos" %> method="post">
+                  <a href=<%= "/" +userid+ "/todos/" + todos[i].title %> class="btn todo"> <%= todos[i].title %></a><button type="submit" name="delete" value=<%= todos[i]._id %>><i class="fa fa-trash"></i></button>
+                </form>
               <% } %>
             </div>
             

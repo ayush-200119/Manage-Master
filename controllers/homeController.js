@@ -1,7 +1,8 @@
 const express=require("express");
 const router=express.Router();
 const Student=require(__dirname+"/../models/studentSchema.js");
-const Todo=require(__dirname+"/../models/todoSchema.js");
+const {Todo,todoSchema}=require(__dirname+"/../models/todoSchema.js");
+
 
 router.get("/",function(req,res)
 {
@@ -29,21 +30,50 @@ router.get("/:userid/todos",async function(req,res){
 
 router.post("/:userid/todos",function(req,res){
     const uid=req.params.userid;
-    const currTitle=req.body.todotitle;
-    const currTodo=new Todo({
-        title:currTitle,
-        checklist:[]
-    });
+    if(req.body.hasOwnProperty("todotitle"))
+    {
+        const currTitle=req.body.todotitle;
+        const currTodo=new Todo({
+            title:currTitle,
+            checklist:[]
+        });
+        
+        //updating the database of the current user and redirecting to the required route
+        currTodo.save().then( todo =>{
+                console.log("Todo created");
+                Student.findOneAndUpdate({id:uid},{$push:{todos:todo._id}},function(err){
+                    if(!err)
+                        console.log("Successfully updated");
+        })});
+        res.redirect(`/${uid}/todos/${currTitle}`);
+    }
     
-    //updating the database of the current user and redirecting to the required route
-    currTodo.save().then( todo =>{
-            console.log("Todo created");
-            Student.findOneAndUpdate({id:uid},{$push:{todos:todo._id}},function(err){
-                if(!err)
-                    console.log("Successfully updated");
-    })});
+    const objId=req.body.delete;
+    Todo.deleteOne({_id:objId},function(err)
+    {
+        if(!err)
+            console.log("Successfully deleted");
+    });
 
-    res.redirect(`/${uid}/todos/${currTitle}`);
+    //need to work on this part!
+    todoSchema.post("remove", document => {
+        const todoId = document._id;
+        Student.find({ todos: { $in: [todoId] } }).then(students => {
+          Promise.all(
+            students.map(student =>
+              Student.findOneAndUpdate(
+                student._id,
+                { $pull: { todos: todoId } },
+                { new: true }
+              )
+            )
+          );
+        });
+      });
+
+    res.redirect(`/${uid}/todos`);
+    
+    
 });
 
 //individual to-do
@@ -69,25 +99,35 @@ router.get("/:userid/todos/:todo",async function(req,res){
 
 router.post("/:userid/todos/:todo",async function(req,res){
     
-    const operation=req.body.operation;
     const uid=req.params.userid;
     const todoTitle=req.params.todo;
-    const todo=req.body.todo;
 
     const currTodo=await getTodo(uid,todoTitle);
     const currTodoId=currTodo._id;
-    if(operation==="#")
+
+    console.log(req.body);
+
+    if(req.body.hasOwnProperty("add"))
     {
+        let todo=req.body.todo;
         Todo.findOneAndUpdate({_id:currTodoId},{$push:{checklist:todo}},function(err){
             if(!err)
             console.log("Successfully updated");
         });
     }
+    else if(req.body.hasOwnProperty("delete"))
+    {
+        let delTodo=req.body.delete;
+        Todo.updateOne({_id:currTodoId},{$pull:{checklist:delTodo}},{ new: true },function(err){
+            if(!err)
+            console.log("Successfully deleted");
+        });
+    }
     else
     {
-        console.log("In the deletion section");
-        console.log(todoTitle);
-        Todo.updateOne({_id:currTodoId},{$pull:{checklist:operation}},{ new: true },function(err){
+        //clear the checklist of the todo
+        let objId=req.body.clear;
+        Todo.updateOne({_id:objId},{$set:{checklist:[]}},function(err){
             if(!err)
             console.log("Successfully deleted");
         });

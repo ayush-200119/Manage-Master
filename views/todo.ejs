@@ -15,7 +15,7 @@
             <form action=<%= "/" +userid+ "/todos/" + todo.title %> method="post">
                 <div class="todo-item">
                         <input type="text" size="40" name="todo">
-                        <button type="submit" name="operation" value="#">Add To List</button>
+                        <button type="submit" name="add" value="#">Add To List</button>
                 </div>
             </form>
             
@@ -23,18 +23,19 @@
             <% for(let i=0;i<todo.checklist.length;i++){ %>
                 <form action=<%= "/" +userid+ "/todos/" + todo.title %> method="post">
                     <div class="todo-item">
-                        <input type="checkbox">
+                        <input type="checkbox" class="checkbox">
                         <p class="todo-task"><%= todo.checklist[i] %></p>
-                        <button type="submit" class="delete" name="operation" value=<%= todo.checklist[i] %> >delete</button>
+                        <button type="submit" class="delete" name="delete" value=<%= todo.checklist[i] %> >delete</button>
                     </div>
                 </form>
             <% } %>
             
-
-            <div class="todo-item clearTodo">
-                <p class="todo-task">Clear the to-do</p>
-                <button>Clear</button>
-            </div>
+            <form action=<%= "/" +userid+ "/todos/" + todo.title %> method="post">
+                <div class="todo-item clearTodo">
+                    <p class="todo-task">Clear the to-do</p>
+                    <button type="submit" name="clear" value=<%= todo._id %> >Clear</button>
+                </div>
+            </form>
 
         </div>
     </div>
