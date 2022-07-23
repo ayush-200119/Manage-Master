@@ -2,7 +2,7 @@ const express=require("express");
 const router=express.Router();
 const Student=require(__dirname+"/../models/studentSchema.js");
 const {Todo,todoSchema}=require(__dirname+"/../models/todoSchema.js");
-
+const Note=require(__dirname+"/../models/noteSchema.js");
 
 router.get("/",function(req,res)
 {
@@ -13,6 +13,10 @@ router.get("/:userid",function(req,res){
     const id=req.params.userid;
     res.render("home",{isLoggedIn:true,userid:id});
 });
+
+
+// ******************Todos Controller **********************
+
 
 async function getTodos(uid)
 {
@@ -76,7 +80,7 @@ router.post("/:userid/todos",function(req,res){
     
 });
 
-//individual to-do
+//************************Todo-Controller ************************************
 
 async function getTodo(uid,title)
 {
@@ -91,7 +95,6 @@ router.get("/:userid/todos/:todo",async function(req,res){
     const uid=req.params.userid;
     const todoTitle=req.params.todo;
 
-    let temp=["Work","Sleep","Code"];
     let currTodo=await getTodo(uid,todoTitle);
     res.render("todo",{userid:uid,todo:currTodo});
 
@@ -136,8 +139,92 @@ router.post("/:userid/todos/:todo",async function(req,res){
     res.redirect(`/${uid}/todos/${todoTitle}`);
 });
 
-router.get("/:userid/notes",function(req,res){
-    res.render("notes");
+
+
+// **********************Notes Controller ************************************
+
+async function getNotes(uid)
+{
+    let student=await Student.findOne({id:uid}).populate("notes");
+    return student.notes;
+}
+
+router.get("/:userid/notes",async function(req,res){
+    const uid=req.params.userid;
+    let currNotes=await getNotes(uid);
+    res.render("notes",{notes:currNotes,userid:uid});
+});
+
+router.post("/:userid/notes",function(req,res){
+    const uid=req.params.userid;
+    if(req.body.hasOwnProperty('notetitle'))
+    {
+        let currTitle=req.body.notetitle;
+        let currNote =new Note({
+            title:currTitle,
+            content: ""
+        });
+
+        currNote.save().then(note=>{
+            Student.updateOne({id:uid},{$push:{notes:note._id}},function(err){
+                if(!err)
+                console.log("Note pushed successfully");
+            });
+        });
+
+        res.redirect(`/${uid}/notes/${currTitle}`);
+    }
+    
+    const delObjId=req.body.delete;
+    Note.deleteOne({_id:delObjId},function(err){
+        if(!err)
+        console.log("Successfully deleted");
+    });
+
+    Student.updateOne({id:uid},{$pull:{notes:delObjId}},function(err){
+        if(!err)
+        console.log("Deleted Successfully from students");
+    });
+
+    res.redirect(`/${uid}/notes`);
+});
+
+// **********************Note Controller ************************************
+
+async function getNote(uid,title)
+{
+    let currStudent=await Student.findOne({id:uid}).populate("notes");
+    let currNote=currStudent.notes.find((note)=>{return note.title===title});
+
+    return currNote;
+}
+
+router.get("/:userid/notes/:title",async function(req,res){
+    const uid=req.params.userid;
+    const currTitle=req.params.title;
+
+    let currNote=await getNote(uid,currTitle);
+    res.render("note",{note:currNote,userid:uid});
+});
+
+router.post("/:userid/notes/:title",async function(req,res){
+    const uid=req.params.userid;
+
+    console.log(req.body);
+    const currTitle=req.body.title;
+    const currContent=req.body.content;
+
+    console.log(currTitle,currContent);
+
+    let currNote=await getNote(uid,currTitle);
+    const currNoteId=currNote._id;
+
+    Note.updateOne({_id:currNoteId},{$set:{title:currTitle,content:currContent}},function(err){
+        if(!err)
+        console.log("Successfully Updated");
+    });
+
+    res.redirect(`/${uid}/notes/${currTitle}`);
 });
 
 router.get("/:userid/record",function(req,res){

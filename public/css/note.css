@@ -1,0 +1,40 @@
+.container{
+    width:80%;
+    max-width:1120px;
+    margin:0 auto;
+}
+
+.hero{
+    padding:7% 0;
+}
+
+.heading{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1rem;
+}
+
+.content{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.upper-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.note{
+    border: 0.1rem solid black;
+    padding: 2rem;
+    width: 80%;
+    margin:0 auto;
+}
+
+[placeholder]:empty:not(:focus):before{
+    content: attr(placeholder);
+}
