@@ -1,0 +1,127 @@
+<%- include("partials/header.ejs"); -%>
+<title>Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Montserrat&display=swap" rel="stylesheet">
+<link href="/css/notes.css" rel="stylesheet">
+
+<script>
+ 
+    //  audio is true, for recording
+    let audioIN = { audio: true };
+
+    // Access the permission for use
+    // the microphone
+    navigator.mediaDevices.getUserMedia(audioIN)
+      .then(function (mediaStreamObj) {
+        // first audio element
+        let audio = document.querySelector('audio');
+        
+        // 'srcObject' is a property which takes the media object This is supported in the newer browsers
+        // if ("srcObject" in audio) {
+        //   audio.srcObject = mediaStreamObj;
+        // }
+        // else {   // Old version
+        //   audio.src = window.URL
+        //     .createObjectURL(mediaStreamObj);
+        // }
+ 
+        // It will play the audio
+        audio.onloadedmetadata = function (ev) {
+          // Play the audio in the 2nd audio
+          // element what is being recorded
+          audio.play();
+        };
+ 
+        // Start record
+        let start = document.getElementById('btnStart');
+ 
+        // Stop record
+        let stop = document.getElementById('btnStop');
+ 
+        // 2nd audio tag for play the audio
+        let playAudio = document.getElementById('audioPlay');
+ 
+        // This is the main thing to recorded
+        // the audio 'MediaRecorder' API
+        let mediaRecorder = new MediaRecorder(mediaStreamObj);
+        // Pass the audio stream
+ 
+        // Start event
+        start.addEventListener('click', function (ev) {
+          mediaRecorder.start();
+        //   audio.src = window.URL.createObjectURL(mediaStreamObj);
+          // console.log(mediaRecorder.state);
+        })
+ 
+        // Stop event
+        stop.addEventListener('click', function (ev) {
+          mediaRecorder.stop();
+          // console.log(mediaRecorder.state);
+        });
+ 
+        // If audio data available then push
+        // it to the chunk array
+        mediaRecorder.ondataavailable = function (ev) {
+          dataArray.push(ev.data);
+        }
+ 
+        // Chunk array to store the audio data
+        let dataArray = [];
+ 
+        // Convert the audio data in to blob
+        // after stopping the recording
+        mediaRecorder.onstop = function (ev) {
+ 
+          // blob of type mp3
+          let audioData = new Blob(dataArray,
+                    { 'type': 'audio/mp3;' });
+           
+          // After fill up the chunk
+          // array make it empty
+          dataArray = [];
+ 
+          // Creating audio url with reference
+          // of created blob named 'audioData'
+          let audioSrc = window.URL
+              .createObjectURL(audioData);
+              console.log(audioSrc);
+          // Pass the audio url to the 2nd video tag
+          playAudio.src = audioSrc;
+        }
+      })
+ 
+      // If any error occurs then handles the error
+      .catch(function (err) {
+        console.log(err.name, err.message);
+      });
+  </script>
+
+</head>
+
+<body>
+    <div class="hero">
+        <div class="container">
+            <h1 class="heading">Create a New Recording!</h1>
+            <!--button for 'start recording'-->
+            <form action=<%= "/" +userid+ "/records/create" %> method="post" enctype="multipart/form-data">
+                <button id="btnStart" type="button">START RECORDING</button>
+                <button id="btnStop" type="button">STOP RECORDING</button>
+                <br>
+                <!--button for 'stop recording'-->
+
+                <!--for record-->
+                <!-- <audio controls></audio> -->
+                
+                <!--for play the audio-->
+                <audio id="audioPlay" controls name="recording"></audio>
+
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+
+<%- include("partials/footer.ejs"); -%>

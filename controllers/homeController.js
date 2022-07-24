@@ -1,4 +1,5 @@
 const express=require("express");
+const multer=require("multer");
 const router=express.Router();
 const Student=require(__dirname+"/../models/studentSchema.js");
 const {Todo,todoSchema}=require(__dirname+"/../models/todoSchema.js");
@@ -227,8 +228,22 @@ router.post("/:userid/notes/:title",async function(req,res){
     res.redirect(`/${uid}/notes/${currTitle}`);
 });
 
-router.get("/:userid/record",function(req,res){
-    res.render("record");
+//*************************Records **********************//
+
+router.get("/:userid/records",function(req,res){
+    const uid=req.params.userid;
+    res.render("records",{userid:uid});
+});
+
+router.get("/:userid/records/create",function(req,res){
+    const uid=req.params.userid;
+    res.render("record",{userid:uid});
+});
+
+router.post("/:userid/records/create",function(req,res){
+    console.log(req.file);
+    console.log(req.body);
+    res.send("Received");
 });
 
 router.get("/:userid/logout",function(req,res){
