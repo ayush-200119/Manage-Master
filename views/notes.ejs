@@ -50,7 +50,9 @@
             <div class="notes">
               <% for(let i=0;i<notes.length;i++){ %>
                 <form action=<%= "/" +userid+ "/notes" %> method="post">
-                  <a href=<%= "/" +userid+ "/notes/" + notes[i].title %> class="btn todo"> <%= notes[i].title %></a><button type="submit" name="delete" value=<%= notes[i]._id %>><i class="fa fa-trash"></i></button>
+                  <div class="note-div">
+                    <a href=<%= "/" +userid+ "/notes/" + notes[i].title %> class="note"> <%= notes[i].title %></a><button type="submit" name="delete" value=<%= notes[i]._id %>><i class="fa fa-trash"></i></button>
+                  </div>
                 </form>
               <% } %>
             </div>

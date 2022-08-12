@@ -36,6 +36,25 @@
     align-items: center;
 }
 
+.todo-div{
+    border: 1px solid #937DC2;
+    padding :1rem 2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    border-radius: 15px;
+}
+
+.todo
+{
+    margin-right: 2rem;
+    text-decoration: none;
+    color: black;
+}
+
+.todo:hover{
+    color: black;
+}
+
 .btn{
     padding: 0.8rem 2rem;
     /* background-color: #0AA1DD; */
@@ -44,6 +63,12 @@
     margin:2rem 0;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.5rem;
+}
+
+.del-btn{
+    background-color: transparent;
+    border: 1px solid #937DC2;
+    border-radius: 5px;
 }
 
 .btn:hover{

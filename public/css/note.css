@@ -14,6 +14,12 @@
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
     letter-spacing: 0.1rem;
+    border:none;
+}
+
+.heading:focus{
+    border: none;
+    outline: none;
 }
 
 .content{
@@ -23,6 +29,7 @@
 }
 
 .upper-content{
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,6 +42,24 @@
     margin:0 auto;
 }
 
+.note:focus{
+    border: 0.1rem solid black;
+}
+
 [placeholder]:empty:not(:focus):before{
     content: attr(placeholder);
+}
+
+.btn{
+    padding: 0.4rem 1rem;
+    /* background-color: #0AA1DD; */
+    border-color: #937DC2;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+}
+
+.btn:hover{
+    background-color: #937DC2;
+    border-color: #937DC2;
 }

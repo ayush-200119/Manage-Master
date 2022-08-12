@@ -1,5 +1,15 @@
 const express=require("express");
-const multer=require("multer");
+const multer=require("multer"); 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, __dirname+'/../uploads/');
+    },
+    filename: function (req, file, cb) {
+      const fileName = req.params.userid+"-"+file.originalname;
+      cb(null, fileName);
+    }
+});
+const upload = multer({ storage:storage });
 const router=express.Router();
 const Student=require(__dirname+"/../models/studentSchema.js");
 const {Todo,todoSchema}=require(__dirname+"/../models/todoSchema.js");
@@ -237,10 +247,10 @@ router.get("/:userid/records",function(req,res){
 
 router.get("/:userid/records/create",function(req,res){
     const uid=req.params.userid;
-    res.render("record",{userid:uid});
+    res.render("record",{userid:uid,src:'C:\\Users\\HP\\Desktop\\SMA\\uploads\\n25aqol5quh3ff-check.mp3'});
 });
 
-router.post("/:userid/records/create",function(req,res){
+router.post("/:userid/records/create",upload.single('recording'),function(req,res){
     console.log(req.file);
     console.log(req.body);
     res.send("Received");

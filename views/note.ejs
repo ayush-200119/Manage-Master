@@ -13,8 +13,8 @@
         <div class="container">
             <form action=<%= "/" +userid+ "/notes/" +note.title %>  method="post">
                 <div class="upper-content">
-                    <input class="heading" contenteditable="true" name="title" value=<%= note.title %>>
-                    <button type="submit">Save Note!</button>
+                    <input class="heading" name="title" value=<%= note.title %>>
+                    <button class="btn" type="submit">Save Note!</button>
                 </div>
             <!-- <p class="content"><%=note.content %></p> -->
             <textarea class="content note" placeholder="Type here...." name="content" row="20" col="50"><%= note.content %></textarea>

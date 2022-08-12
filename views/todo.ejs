@@ -11,13 +11,14 @@
     
     <div class="hero">
         <div class="container">
-            <h1 class="heading"><%= todo.title %></h1>
-            <form action=<%= "/" +userid+ "/todos/" + todo.title %> method="post">
-                <div class="todo-item">
-                        <input type="text" size="40" name="todo">
-                        <button type="submit" name="add" value="#">Add To List</button>
-                </div>
-            </form>
+            
+                <h1 class="heading"><%= todo.title %></h1>
+                <form action=<%= "/" +userid+ "/todos/" + todo.title %> method="post">
+                    <div class="todo-item">
+                            <input class="new-todo-item" type="text" size="40" name="todo">
+                            <button type="submit" class="btn" name="add" value="#">Add To List</button>
+                    </div>
+                </form>
             
             
             <% for(let i=0;i<todo.checklist.length;i++){ %>
@@ -25,7 +26,7 @@
                     <div class="todo-item">
                         <input type="checkbox" class="checkbox">
                         <p class="todo-task"><%= todo.checklist[i] %></p>
-                        <button type="submit" class="delete" name="delete" value=<%= todo.checklist[i] %> >delete</button>
+                        <button type="submit" class="delete btn" name="delete" value=<%= todo.checklist[i] %> ><i class="fa fa-trash"></i></button>
                     </div>
                 </form>
             <% } %>
@@ -33,7 +34,7 @@
             <form action=<%= "/" +userid+ "/todos/" + todo.title %> method="post">
                 <div class="todo-item clearTodo">
                     <p class="todo-task">Clear the to-do</p>
-                    <button type="submit" name="clear" value=<%= todo._id %> >Clear</button>
+                    <button type="submit" name="clear" class="btn" value=<%= todo._id %> >Clear</button>
                 </div>
             </form>
 

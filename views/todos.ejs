@@ -50,7 +50,9 @@
             <div class="todos">
               <% for(let i=0;i<todos.length;i++){ %>
                 <form action=<%= "/" +userid+ "/todos" %> method="post">
-                  <a href=<%= "/" +userid+ "/todos/" + todos[i].title %> class="btn todo"> <%= todos[i].title %></a><button type="submit" name="delete" value=<%= todos[i]._id %>><i class="fa fa-trash"></i></button>
+                  <div class="todo-div">
+                  <a href=<%= "/" +userid+ "/todos/" + todos[i].title %> class="todo"> <%= todos[i].title %></a><button type="submit" name="delete" class="del-btn" value=<%= todos[i]._id %>><i class="fa fa-trash"></i></button>
+                  </div>
                 </form>
               <% } %>
             </div>
